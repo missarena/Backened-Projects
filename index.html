@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Header Parser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .content {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .response {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1> API PROJECT:Request Header Parser Microservice</h1>
+    <div class="content">
+        <button id="fetchData">Get Header Info</button>
+        <div id="response" class="response" style="display:none;">
+            <p><strong>IP Address:</strong> <span id="ipaddress"></span></p>
+            <p><strong>Language:</strong> <span id="language"></span></p>
+            <p><strong>Software:</strong> <span id="software"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Add event listener to the "Get Header Info" button
+        document.getElementById('fetchData').addEventListener('click', function() {
+            fetch('http://localhost:3000/api/whoami')  // Replace with your backend URL
+                .then(response => response.json())
+                .then(data => {
+                    // Display the response data in the HTML
+                    document.getElementById('ipaddress').textContent = data.ipaddress;
+                    document.getElementById('language').textContent = data.language;
+                    document.getElementById('software').textContent = data.software;
+
+                    // Show the response section
+                    document.getElementById('response').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        });
+    </script>
+
+</body>
+</html>
